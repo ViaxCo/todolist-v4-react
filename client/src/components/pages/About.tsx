@@ -16,7 +16,7 @@ const About = () => {
   // useColorMode for color mode check and toggle
   const { colorMode } = useColorMode();
   return (
-    <>
+    <div style={{ position: "relative", overflow: "hidden" }}>
       <motion.div
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -80,7 +80,7 @@ const About = () => {
         </Box>
       </motion.div>
       <Footer />
-    </>
+    </div>
   );
 };
 

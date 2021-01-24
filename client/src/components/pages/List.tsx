@@ -40,7 +40,7 @@ const List = () => {
           margin="auto"
         />
       ) : (
-        <>
+        <div style={{ position: "relative", overflow: "hidden" }}>
           <motion.div
             initial={{ y: -20, opacity: 0.5 }}
             animate={{ y: 0, opacity: 1 }}
@@ -60,7 +60,7 @@ const List = () => {
             <Card customListName={customListName} />
           </motion.div>
           <Footer />
-        </>
+        </div>
       )}
     </>
   );

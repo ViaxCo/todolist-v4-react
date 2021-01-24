@@ -23,7 +23,6 @@ const styles = {
     },
     // styles for the `body`
     body: {
-      padding: "0 10px",
       bg: secondary.blue,
       bgImage:
         props.colorMode === "light"
@@ -36,7 +35,7 @@ const styles = {
     ".blender": {
       width: "2.5rem",
       height: "2.5rem",
-      position: "fixed",
+      position: "absolute",
       borderRadius: "50%",
       zIndex: -10,
       pointerEvents: "none",
