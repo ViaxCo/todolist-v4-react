@@ -40,7 +40,10 @@ const List = () => {
           margin="auto"
         />
       ) : (
-        <div style={{ position: "relative", overflow: "hidden" }}>
+        <div
+          style={{ position: "relative", overflow: "hidden" }}
+          className="container"
+        >
           <motion.div
             initial={{ y: -20, opacity: 0.5 }}
             animate={{ y: 0, opacity: 1 }}

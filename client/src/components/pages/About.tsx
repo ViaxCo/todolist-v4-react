@@ -16,7 +16,10 @@ const About = () => {
   // useColorMode for color mode check and toggle
   const { colorMode } = useColorMode();
   return (
-    <div style={{ position: "relative", overflow: "hidden" }}>
+    <div
+      style={{ position: "relative", overflow: "hidden" }}
+      className="container"
+    >
       <motion.div
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}

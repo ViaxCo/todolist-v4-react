@@ -32,6 +32,9 @@ const styles = {
       minHeight: { base: "100vh", md: "1000px" },
       minWidth: "fit-content",
     },
+    ".container": {
+      minHeight: { base: "100vh", md: "1000px" },
+    },
     ".blender": {
       width: "2.5rem",
       height: "2.5rem",
