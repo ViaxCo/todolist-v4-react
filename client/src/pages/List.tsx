@@ -1,9 +1,9 @@
 import { useContext, useEffect } from "react";
-import { GlobalContext } from "../../context/GlobalState";
-import Header from "../Header";
-import HeaderTwo from "../HeaderTwo";
-import Card from "../Card";
-import Footer from "../Footer";
+import { GlobalContext } from "../context/GlobalState";
+import Header from "../components/Header";
+import HeaderTwo from "../components/HeaderTwo";
+import Card from "../components/Card";
+import Footer from "../components/Footer";
 import { Link, Spinner, useColorMode } from "@chakra-ui/react";
 import { Link as RouterLink, useParams } from "react-router-dom";
 import { motion } from "framer-motion";

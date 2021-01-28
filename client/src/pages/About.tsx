@@ -7,9 +7,9 @@ import {
   useColorMode,
   useColorModeValue,
 } from "@chakra-ui/react";
-import avatar from "../../avatar.png";
-import Footer from "../Footer";
-import ColorModeButton from "../ColorModeButton";
+import avatar from "../avatar.png";
+import Footer from "../components/Footer";
+import ColorModeButton from "../components/ColorModeButton";
 import { motion } from "framer-motion";
 
 const About = () => {

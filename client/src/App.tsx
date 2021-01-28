@@ -1,7 +1,7 @@
 import { Router, Route, Switch } from "react-router-dom";
-import Home from "./components/pages/Home";
-import List from "./components/pages/List";
-import About from "./components/pages/About";
+import Home from "./pages/Home";
+import List from "./pages/List";
+import About from "./pages/About";
 import { Provider } from "./context/GlobalState";
 import history from "./utils/history";
 
