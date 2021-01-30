@@ -3,33 +3,20 @@ import { GlobalContext, Item } from "../context/GlobalState";
 import { DeleteIcon } from "@chakra-ui/icons";
 import {
   Box,
-  Flex,
   IconButton,
   Checkbox,
   useBreakpointValue,
   useColorModeValue,
-  forwardRef,
-  ChakraProps,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { isValidMotionProp, motion, MotionProps } from "framer-motion";
+import { motion } from "framer-motion";
+import { MotionFlex } from "./ListCard";
 
 type Props = {
   item: Item;
   i: number;
   customListName?: string;
 };
-
-// Create a custom motion component from Flex
-const MotionFlex = motion.custom(
-  forwardRef<MotionProps & ChakraProps, "div">((props, ref) => {
-    const chakraProps = Object.fromEntries(
-      // do not pass framer props to DOM element
-      Object.entries(props).filter(([key]) => !isValidMotionProp(key))
-    );
-    return <Flex ref={ref} {...chakraProps} />;
-  })
-);
 
 const ListItemCard = ({ item, i, customListName }: Props) => {
   const [checked, setChecked] = useState(item.completed);

@@ -21,7 +21,7 @@ type Props = {
 };
 
 // Create a custom motion component from Flex
-const MotionFlex = motion.custom(
+export const MotionFlex = motion.custom(
   forwardRef<MotionProps & ChakraProps, "div">((props, ref) => {
     const chakraProps = Object.fromEntries(
       // do not pass framer props to DOM element
