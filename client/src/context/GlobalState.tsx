@@ -6,7 +6,7 @@ import {
   GET_LISTS,
   GET_LIST_ITEMS,
   DELETE_LIST,
-  DELETE_LIST_ITEMS,
+  DELETE_LIST_ITEM,
   SET_ISLOADING,
   ADD_LIST_ITEM,
   TOGGLE_ITEM_COMPLETED,
@@ -137,7 +137,7 @@ export const Provider: FC<ReactNode> = ({ children }) => {
 
   const deleteListItem = async (customListName: string, id: string) => {
     try {
-      dispatch({ type: DELETE_LIST_ITEMS, payload: id });
+      dispatch({ type: DELETE_LIST_ITEM, payload: id });
       await axios.delete(`/api/${customListName}/${id}`);
     } catch (err) {
       dispatch({
