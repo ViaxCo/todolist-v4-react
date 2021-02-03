@@ -1,5 +1,8 @@
-import { useContext, useEffect } from "react";
-import { GlobalContext } from "../context/GlobalState";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getItems } from "../redux/features/items/itemsSlice";
+import { setHomeIsLoading } from "../redux/features/lists/listsSlice";
+import { State } from "../redux/store";
 import Header from "../components/Header";
 import HeaderTwo from "../components/HeaderTwo";
 import Card from "../components/Card";
@@ -14,20 +17,21 @@ interface ParamsTypes {
 }
 
 const List = () => {
-  const { getListItems, isLoading, setIsLoading } = useContext(GlobalContext);
   // Get the url parameter (/:customListName) value
   const { customListName } = useParams<ParamsTypes>();
   // useColorMode for color mode check
   const { colorMode } = useColorMode();
 
+  const dispatch = useDispatch();
+  const { listIsLoading } = useSelector((state: State) => state.items);
+
   useEffect(() => {
-    getListItems && getListItems(customListName);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    dispatch(getItems(customListName));
+  }, [dispatch, customListName]);
   return (
     <>
       {/* Show spinner when fetching Items */}
-      {isLoading ? (
+      {listIsLoading ? (
         <Spinner
           color={colorMode === "light" ? "main.blue" : "viaxco.50"}
           size="xl"
@@ -55,11 +59,11 @@ const List = () => {
               as={RouterLink}
               to="/"
               style={{ textDecoration: "none" }}
-              onClick={() => setIsLoading && setIsLoading(true)}
+              onClick={() => dispatch(setHomeIsLoading(true))}
             >
               <Header />
             </Link>
-            <HeaderTwo />
+            <HeaderTwo customListName={customListName} />
             <Card customListName={customListName} />
           </motion.div>
           <Footer />

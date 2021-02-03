@@ -1,10 +1,10 @@
-import { useContext } from "react";
-import { GlobalContext } from "../context/GlobalState";
+import { useDispatch } from "react-redux";
+import { setHomeIsLoading } from "../redux/features/lists/listsSlice";
 import { Box, Link } from "@chakra-ui/react";
 import { Link as RouterLink, Route, Switch } from "react-router-dom";
 
 const Footer = () => {
-  const { setIsLoading } = useContext(GlobalContext);
+  const dispatch = useDispatch();
   return (
     <Box
       as="footer"
@@ -30,7 +30,7 @@ const Footer = () => {
             as={RouterLink}
             to="/about"
             textDecor="underline"
-            onClick={() => setIsLoading && setIsLoading(true)}
+            onClick={() => dispatch(setHomeIsLoading(true))}
           >
             ViaxCo
           </Link>

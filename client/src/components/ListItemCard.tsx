@@ -1,5 +1,9 @@
-import { useContext } from "react";
-import { GlobalContext, Item } from "../context/GlobalState";
+import { useDispatch } from "react-redux";
+import {
+  deleteItem,
+  Item,
+  toggleItemCompleted,
+} from "../redux/features/items/itemsSlice";
 import { DeleteIcon } from "@chakra-ui/icons";
 import {
   Box,
@@ -20,8 +24,8 @@ type Props = {
 
 const ListItemCard = ({ item, i, customListName }: Props) => {
   const [checked, setChecked] = useState(item.completed);
-  const { deleteListItem, toggleItemCompleted } = useContext(GlobalContext);
 
+  const dispatch = useDispatch();
   return (
     <motion.div
       layout
@@ -72,12 +76,13 @@ const ListItemCard = ({ item, i, customListName }: Props) => {
             fontWeight={400}
             color={useColorModeValue("main.blue", "white")}
             isChecked={checked}
-            onChange={e => {
+            onChange={() => {
               setChecked(!checked);
               item._id &&
                 customListName &&
-                toggleItemCompleted &&
-                toggleItemCompleted(customListName, item._id, !checked);
+                dispatch(
+                  toggleItemCompleted(customListName, item._id, i, !checked)
+                );
             }}
             textDecoration={checked ? "line-through" : undefined}
           >
@@ -91,10 +96,9 @@ const ListItemCard = ({ item, i, customListName }: Props) => {
           size={useBreakpointValue({ base: "sm", md: "md" })}
           colorScheme="red"
           onClick={() =>
-            customListName &&
             item._id &&
-            deleteListItem &&
-            deleteListItem(customListName, item._id)
+            customListName &&
+            dispatch(deleteItem(customListName, item._id))
           }
           icon={<DeleteIcon />}
         />

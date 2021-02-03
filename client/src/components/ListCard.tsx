@@ -1,5 +1,6 @@
-import { useContext } from "react";
-import { GlobalContext, List } from "../context/GlobalState";
+import { useDispatch } from "react-redux";
+import { deleteList, List } from "../redux/features/lists/listsSlice";
+import { setListIsLoading } from "../redux/features/items/itemsSlice";
 import { DeleteIcon } from "@chakra-ui/icons";
 import {
   Box,
@@ -32,8 +33,7 @@ export const MotionFlex = motion.custom(
 );
 
 const ListCard = ({ list, i }: Props) => {
-  const { deleteList, setIsLoading } = useContext(GlobalContext);
-
+  const dispatch = useDispatch();
   return (
     <motion.div
       layout
@@ -82,7 +82,7 @@ const ListCard = ({ list, i }: Props) => {
             flex="1"
             textAlign="center"
             borderRadius="5px"
-            onClick={() => setIsLoading && setIsLoading(true)}
+            onClick={() => dispatch(setListIsLoading(true))}
           >
             <Text
               p="20px"
@@ -100,7 +100,7 @@ const ListCard = ({ list, i }: Props) => {
           variant="ghost"
           size={useBreakpointValue({ base: "sm", md: "md" })}
           colorScheme="red"
-          onClick={() => list._id && deleteList && deleteList(list._id)}
+          onClick={() => list._id && dispatch(deleteList(list._id))}
           icon={<DeleteIcon />}
         />
       </MotionFlex>

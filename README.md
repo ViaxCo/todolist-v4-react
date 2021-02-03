@@ -1,6 +1,8 @@
 # todolist-v4-react
 
-This app lets you create various todo lists with their individual items, built using React and Node.js.
+This app lets you create various todo lists with their individual items, built using React, Redux and Node.js.
+
+The `context-api` branch contains the exact project, but it uses the [Context API](https://reactjs.org/docs/context.html) instead of [Redux](https://redux.js.org/) for state management.
 
 The difference between this and [todolist-v3-react](https://github.com/ViaxCo/todolist-v3-react) is that this gives each unique visitor to the website a separate space to create lists without the need to implement authentication. This is achieved using cookies and sessions.
 

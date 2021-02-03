@@ -135,14 +135,8 @@ export const addListItem = async (req: Request, res: Response) => {
       { uuid: req.session.user.uuid, "lists.name": customListName },
       { $push: { "lists.$.items": item } }
     );
-    // Proceed to query the list and return the items
-    const user: UserDoc = await User.findOne(
-      { uuid: req.session.user.uuid, "lists.name": customListName },
-      { "lists.$": 1 }
-    );
-    const foundList = user.lists[0];
     return res.status(201).json({
-      items: foundList.items,
+      item,
     });
   } catch (err) {
     console.log(err.message);

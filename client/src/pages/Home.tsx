@@ -1,5 +1,7 @@
-import { useContext, useEffect } from "react";
-import { GlobalContext } from "../context/GlobalState";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getLists } from "../redux/features/lists/listsSlice";
+import { State } from "../redux/store";
 import Header from "../components/Header";
 import HeaderTwo from "../components/HeaderTwo";
 import Card from "../components/Card";
@@ -8,18 +10,19 @@ import { Spinner, useColorMode } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 
 const Home = () => {
-  const { getLists, isLoading } = useContext(GlobalContext);
   // useColorMode for color mode check
   const { colorMode } = useColorMode();
 
+  const dispatch = useDispatch();
+  const { homeIsLoading } = useSelector((state: State) => state.lists);
+
   useEffect(() => {
-    getLists && getLists();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    dispatch(getLists());
+  }, [dispatch]);
   return (
     <>
       {/* Show spinner when fetching Lists */}
-      {isLoading ? (
+      {homeIsLoading ? (
         <Spinner
           color={colorMode === "light" ? "main.blue" : "viaxco.50"}
           size="xl"

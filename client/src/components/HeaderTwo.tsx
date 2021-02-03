@@ -1,5 +1,3 @@
-import { useContext } from "react";
-import { GlobalContext } from "../context/GlobalState";
 import {
   Box,
   Heading,
@@ -7,14 +5,14 @@ import {
   useColorMode,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { getDay } from "../utils/date";
 import ColorModeButton from "./ColorModeButton";
 import { motion } from "framer-motion";
 
-const HeaderTwo = () => {
-  const { listTitle } = useContext(GlobalContext);
-  const day = getDay();
+type Props = {
+  customListName?: string;
+};
 
+const HeaderTwo = ({ customListName }: Props) => {
   // useColorMode for color mode check and toggle
   const { colorMode } = useColorMode();
   // Custom css value depending on the color mode
@@ -39,7 +37,7 @@ const HeaderTwo = () => {
           color={useColorModeValue("main.blue", "white")}
           fontSize="1.5rem"
         >
-          Your {listTitle === day ? "Lists" : "Items"}
+          Your {customListName ? "Items" : "Lists"}
         </Heading>
         <ColorModeButton />
         <motion.div

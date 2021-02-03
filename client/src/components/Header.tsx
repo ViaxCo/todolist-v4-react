@@ -1,9 +1,11 @@
-import { useContext } from "react";
-import { GlobalContext } from "../context/GlobalState";
+import { useSelector } from "react-redux";
+import { State } from "../redux/store";
 import { Box, Heading } from "@chakra-ui/react";
+import { Route, Switch } from "react-router-dom";
 
 const Header = () => {
-  const { listTitle } = useContext(GlobalContext);
+  const { today } = useSelector((state: State) => state.lists);
+  const { listTitle } = useSelector((state: State) => state.items);
 
   return (
     <Box
@@ -13,7 +15,10 @@ const Header = () => {
       className="box"
     >
       <Heading as="h1" color="white" p="10px">
-        {listTitle}
+        <Switch>
+          <Route path="/api/:customListName">{listTitle}</Route>
+          <Route path="/">{today}</Route>
+        </Switch>
       </Heading>
     </Box>
   );

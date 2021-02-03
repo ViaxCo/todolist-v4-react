@@ -1,5 +1,11 @@
-import { ChangeEvent, FormEvent, useContext, useState } from "react";
-import { GlobalContext } from "../context/GlobalState";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addItem,
+  setListIsLoading,
+  setAdding,
+} from "../redux/features/items/itemsSlice";
+import { addList } from "../redux/features/lists/listsSlice";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { AddIcon } from "@chakra-ui/icons";
 import {
   Flex,
@@ -9,37 +15,35 @@ import {
   useColorModeValue,
   Spinner,
 } from "@chakra-ui/react";
-import { getDay } from "../utils/date";
+import { State } from "../redux/store";
 
 type Props = {
   customListName?: string;
 };
 
 const AddNewListOrItem = ({ customListName }: Props) => {
+  const dispatch = useDispatch();
+
   const [value, setValue] = useState("");
-  const [adding, setAdding] = useState(false);
-  const { listTitle, addList, addListItem, setIsLoading } = useContext(
-    GlobalContext
-  );
-  const day = getDay();
+  const { adding } = useSelector((state: State) => state.items);
 
   // Control the value of the input component
   const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
     setValue(e.target.value);
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     // If on the home page
-    if (listTitle === day) {
-      setIsLoading && setIsLoading(true);
-      addList && addList(value);
+    if (!customListName) {
+      dispatch(setListIsLoading(true));
+      dispatch(addList(value));
     }
     // If on the individual lists page
     if (customListName) {
-      setAdding(true);
+      dispatch(setAdding(true));
       setValue("");
-      addListItem && (await addListItem(customListName, value));
-      setAdding(false);
+      dispatch(addItem(customListName, value));
+      // setAdding(false) inside the addItem function
     }
   };
 
@@ -47,7 +51,7 @@ const AddNewListOrItem = ({ customListName }: Props) => {
     <Flex
       as="form"
       method="post"
-      action={listTitle === day ? "/api" : `/api/${customListName}`}
+      action={customListName ? `/api/${customListName}` : "/api"}
       onSubmit={handleSubmit}
       align="center"
       minH="70px"
@@ -69,9 +73,8 @@ const AddNewListOrItem = ({ customListName }: Props) => {
           value={value}
           onChange={handleChange}
           isRequired={true}
-          // autoFocus={listTitle === day ? true : false}
           autoComplete="off"
-          placeholder={listTitle === day ? "New List" : "New Item"}
+          placeholder={customListName ? "New Item" : "New List"}
           _focus={{
             outline: "none",
             boxShadow: useColorModeValue(
@@ -86,7 +89,7 @@ const AddNewListOrItem = ({ customListName }: Props) => {
         />
         <IconButton
           type="submit"
-          aria-label={listTitle === day ? "Add List" : "Add Item"}
+          aria-label={customListName ? "Add Item" : "Add List"}
           borderRadius="50%"
           minW="50px"
           minH="50px"
